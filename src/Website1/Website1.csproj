@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Components" Version="1.0.84-pre" />
-    <PackageReference Include="Ramverk" Version="1.0.84-pre" />
+    <PackageReference Include="Components" Version="1.0.86-pre" />
+    <PackageReference Include="Ramverk" Version="1.0.86-pre" />
   </ItemGroup>
 
 </Project>

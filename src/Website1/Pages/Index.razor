@@ -1,5 +1,26 @@
 ﻿@page "/"
+@page "/component/{TypeName}"
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@dynamicComponent()
+
+@code {
+
+    [ParameterAttribute]
+    public string TypeName { get; set; }
+
+    RenderFragment dynamicComponent() => builder =>
+    {
+        var renderComponentType = System.Reflection.Assembly.GetAssembly(typeof(Components.ExampleJsInterop)).GetTypes().Where(x => x.Name == TypeName).FirstOrDefault();
+        if (renderComponentType != null)
+        {
+
+            builder.OpenComponent(0, renderComponentType);
+            //builder.AddAttribute(1, "Title", "Some title");
+            builder.CloseComponent();
+        }
+    };
+}

@@ -1,0 +1,9 @@
+﻿@page "/dynamic1"
+
+<h3>Dynamic1</h3>
+
+Time: @Time
+
+@code {
+    private static string Time { get; set; } = DateTime.Now.ToString();
+}
