@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components.csproj", "{598E69BE-EC7E-4E5D-BA81-A93D92513422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components", "src\Components\Components.csproj", "{598E69BE-EC7E-4E5D-BA81-A93D92513422}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website1", "..\Website1\Website1.csproj", "{3A5D2B32-8F16-4C0C-B7CC-A041DF2CAC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website1", "src\Website1\Website1.csproj", "{3A5D2B32-8F16-4C0C-B7CC-A041DF2CAC65}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{399C66A8-E090-409F-8BBA-B256A0762B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteBase", "..\WebsiteBase\WebsiteBase.csproj", "{E017212A-1308-4185-90A4-84CB267E11A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ramverk", "src\Ramverk\Ramverk.csproj", "{E017212A-1308-4185-90A4-84CB267E11A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B397CD4A-742A-4A82-A929-ABD8717F6C78}"
+	ProjectSection(SolutionItems) = preProject
+		pack.bat = pack.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

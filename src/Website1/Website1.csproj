@@ -6,11 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebsiteBase" Version="1.0.1-pre" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WebsiteBase\WebsiteBase.csproj" />
+    <PackageReference Include="Components" Version="1.0.84-pre" />
+    <PackageReference Include="Ramverk" Version="1.0.84-pre" />
   </ItemGroup>
 
 </Project>

@@ -2,40 +2,33 @@
 
 set PackageSource=d:\nuget_repo
 
-del src\WebsiteBase\bin\*.nupkg /s
+del src\Components\bin\*.nupkg /s
+del src\Ramverk\bin\*.nupkg /s
 
 set /p Build=<ver.txt
 set /a Build=%Build%+1
 echo %Build%>ver.txt
+
+>ver.txt echo %Build%
 set SemVer=1.0.%Build%-pre
 echo Packaging using version: %SemVer%
 
-REM setlocal EnableDelayedExpansion
-REM set n=0
-REM for %%p in (%projects%) do (
-REM    set vector[!n!]=%%p
-REM    set /A n+=1
-REM    echo %%p
-REM )
+dotnet pack src/Components/Components.csproj -p:verbosity=quiet -p:PackageVersion=%SemVer%
+dotnet pack src/Ramverk/Ramverk.csproj -p:verbosity=quiet -p:PackageVersion=%SemVer%
 
-msbuild -t:pack src\WebsiteBase/WebsiteBase.csproj -verbosity:quiet -p:PackageVersion=%SemVer%
+For /R . %%G IN (*.nupkg) do (dotnet nuget push %%G -s %PackageSource%)
 
+REM For /R . %%G IN (*.nupkg) do (call :pack "%%G")
+REM GOTO :eof
 
-REM For /R . %%G IN (src\*.nupkg) do (nuget push %%G -source %PackageSource%
+REM :pack
+REM echo dotnet nuget push package: %1
+ 
+REM dotnet nuget push %1 -s %PackageSource%
+ 
+REM dotnet remove src\Website1\Website1.csproj package WebsiteBase
+ 
+REM GOTO :eof
 
-
-For /R . %%G IN (*.nupkg) do (call :pack "%%G")
-GOTO :eof
-
-:pack
- echo nuget push package: %1
- nuget push %1 -source %PackageSource%
- REM nuget update src\Website1\Website1.csproj -Id WebsiteBase -source %PackageSource%
- REM dotnet add src\Website1\Website1.csproj package WebsiteBase -v %SemVer% -s %PackageSource%
- cd src\Website1\
- dotnet add Website1.csproj package -s %PackageSource% WebsiteBase
- cd ..
- cd ..
- REM nuget restore src\Website1\Website1.csproj
- REM nuget update src\Website1\Website1.csproj -ID WebsiteBase -source %PackageSource%
-GOTO :eof
+ dotnet add src\Website1\Website1.csproj package Components -s %PackageSource% -v %SemVer%
+ dotnet add src\Website1\Website1.csproj package Ramverk -s %PackageSource% -v %SemVer%
