@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="Components" Version="1.0.86-pre" />
+    <PackageReference Include="McMaster.NETCore.Plugins" Version="0.3.1" />
+    <PackageReference Include="McMaster.NETCore.Plugins.Mvc" Version="0.3.1" />
     <PackageReference Include="Ramverk" Version="1.0.86-pre" />
   </ItemGroup>
 

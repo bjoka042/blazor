@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Loader;
 using System.Threading.Tasks;
+using McMaster.NETCore.Plugins;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +12,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Runtime.Loader;
+using System.Reflection;
 
 namespace Website1
 {
@@ -27,6 +32,13 @@ namespace Website1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            //var pluginFile = Path.Combine(AppContext.BaseDirectory, "plugins/AnotherLibrary/AnotherLibrary.dll");
+            //services
+            //    .AddMvc()
+            //    // The AddPluginFromAssemblyFile method comes from McMaster.NETCore.Plugins.Mvc
+            //    .AddPluginFromAssemblyFile(pluginFile);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

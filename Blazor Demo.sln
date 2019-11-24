@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		pack.bat = pack.bat
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnotherLibrary", "src\AnotherLibrary\AnotherLibrary.csproj", "{AC3DA815-9DDA-468F-9968-EB7F89B814F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{E017212A-1308-4185-90A4-84CB267E11A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E017212A-1308-4185-90A4-84CB267E11A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E017212A-1308-4185-90A4-84CB267E11A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC3DA815-9DDA-468F-9968-EB7F89B814F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC3DA815-9DDA-468F-9968-EB7F89B814F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC3DA815-9DDA-468F-9968-EB7F89B814F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC3DA815-9DDA-468F-9968-EB7F89B814F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{598E69BE-EC7E-4E5D-BA81-A93D92513422} = {399C66A8-E090-409F-8BBA-B256A0762B97}
 		{E017212A-1308-4185-90A4-84CB267E11A9} = {399C66A8-E090-409F-8BBA-B256A0762B97}
+		{AC3DA815-9DDA-468F-9968-EB7F89B814F2} = {399C66A8-E090-409F-8BBA-B256A0762B97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9E3DA40-3897-48AF-AC1D-AD56E958EB64}
