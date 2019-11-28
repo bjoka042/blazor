@@ -14,12 +14,12 @@ The aim was to be able to load external assemblies into existing app and be able
 - Plugin1 (Razor library)
 - Plugin2 (Razor library)
     
-# How to run
+## How to run
 Build solution 
 - Plugin1 and Plugin2 have AfterBuild targets to CopyOutputToDestination "Host1\Plugins"
 
 Set Startup Projects to "Host1"
 Run application using, Run->Host1.
 
-#Prerequisites
+## Prerequisites
 - .NET Core 3 SDK
