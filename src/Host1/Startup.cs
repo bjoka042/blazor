@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using McMaster.NETCore.Plugins;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -85,7 +82,7 @@ namespace Host1
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute(); // Behöv om man ska använda Controllers/Routes
+                //endpoints.MapDefaultControllerRoute(); // Behöv om man ska använda Controllers/Routes
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
