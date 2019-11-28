@@ -1,22 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Loader;
-using System.Threading.Tasks;
-using McMaster.NETCore.Plugins;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Runtime.Loader;
+using McMaster.NETCore.Plugins;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.Loader;
+using System.Linq;
+using Web.Core;
 
 namespace Website1
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,19 +26,42 @@ namespace Website1
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            var mvcBuilder = services.AddRazorPages();
             services.AddServerSideBlazor();
-            //var pluginFile = Path.Combine(AppContext.BaseDirectory, "plugins/AnotherLibrary/AnotherLibrary.dll");
-            //services
-            //    .AddMvc()
-            //    // The AddPluginFromAssemblyFile method comes from McMaster.NETCore.Plugins.Mvc
-            //    .AddPluginFromAssemblyFile(pluginFile);
 
+            var additionalAssemblies = new List<Assembly>();
 
+            foreach (var dir in Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "Plugins")))
+            {
+                var pluginFile = Path.Combine(dir, Path.GetFileName(dir) + ".dll");
+                Console.WriteLine($"Loading plugin {pluginFile}");
+
+                mvcBuilder.AddPluginFromAssemblyFile(pluginFile);
+            }
+
+            var assemblies = AssemblyLoadContext.All
+                .SelectMany(x => x.Assemblies)
+                .Where(x => x.ExportedTypes.Any(d => !d.IsInterface && typeof(IFeature).IsAssignableFrom(d)))
+                .ToList();
+
+            var featureTypes = assemblies.SelectMany(x => x.ExportedTypes).Where(x => !x.IsInterface && typeof(IFeature).IsAssignableFrom(x));
+            foreach (var featureType in featureTypes)
+            {
+                var feature = Activator.CreateInstance(featureType) as IFeature;
+                if (feature == null)
+                    throw new ArgumentNullException(nameof(feature), $"Failed to instantiate {nameof(IFeature)} from type {featureType.FullName}.");
+
+                services.AddSingleton(feature);
+                feature.Register(services);
+
+                if (!additionalAssemblies.Contains(featureType.Assembly))
+                    additionalAssemblies.Add(featureType.Assembly);
+            }
+
+            additionalAssemblies.ForEach(x => Console.WriteLine($"AdditionalAssemblies: {x.FullName}"));
+            services.AddSingleton(typeof(IAdditionalAssembliesProvider), new AdditionalAssembliesProvider(additionalAssemblies));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +85,7 @@ namespace Website1
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute(); // Behöv om man ska använda Controllers/Routes
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

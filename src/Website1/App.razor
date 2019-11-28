@@ -1,4 +1,6 @@
-<Router AppAssembly="@typeof(Program).Assembly">
+@inject IAdditionalAssembliesProvider AdditionalAssembliesProvider
+
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@LoadAdditionalAssemblies()">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
@@ -8,3 +10,12 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    //AdditionalAssemblies="@LoadAdditionalAssemblies()">
+    //AdditionalAssemblies="new[] { typeof(AnotherLibrary.AnotherLibraryFeature).Assembly }">
+    protected IEnumerable<System.Reflection.Assembly> LoadAdditionalAssemblies()
+    {
+        return AdditionalAssembliesProvider.Get();
+    }
+}

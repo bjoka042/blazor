@@ -24,3 +24,12 @@ D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\AnotherLibrary.dll
 D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\AnotherLibrary.pdb
 D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\AnotherLibrary.Views.dll
 D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\AnotherLibrary.Views.pdb
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\AnotherLibrary.csprojAssemblyReference.cache
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\AnotherLibrary.RazorComponent.input.cache
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\RazorDeclaration\AnotherLibrary.dll
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\RazorDeclaration\Index.razor.g.cs
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\RazorDeclaration\TestComponent.razor.g.cs
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\Razor\Index.razor.g.cs
+D:\Repos\blazor\src\AnotherLibrary\obj\Debug\netcoreapp3.1\Razor\TestComponent.razor.g.cs
+D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\Web.Core.dll
+D:\Repos\blazor\src\AnotherLibrary\bin\Debug\netcoreapp3.1\Web.Core.pdb

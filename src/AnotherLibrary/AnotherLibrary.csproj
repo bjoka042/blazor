@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <CopyDestionationPath>..\Website1\bin\Debug\netcoreapp3.1\Plugins</CopyDestionationPath>
+    <CopyDestionationPath>..\Website1\bin\Debug\netcoreapp3.0\Plugins</CopyDestionationPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web.Core\Web.Core.csproj" />
   </ItemGroup>
 
   <Target Name="CopyOutputToDestination" AfterTargets="AfterBuild">
