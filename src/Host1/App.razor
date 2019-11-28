@@ -1,4 +1,3 @@
-@using Host1.Utility
 @inject IAdditionalAssembliesProvider AdditionalAssembliesProvider
 
 <Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@LoadAdditionalAssemblies()">
@@ -15,6 +14,6 @@
 @code {
     protected IEnumerable<System.Reflection.Assembly> LoadAdditionalAssemblies()
     {
-        return AdditionalAssembliesProvider.Get();
+        return AdditionalAssembliesProvider.GetAdditionalAssemblies();
     }
 }

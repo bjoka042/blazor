@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace PluginBase
@@ -7,6 +8,6 @@ namespace PluginBase
     {
         string Name { get; }
 
-        void Register(IServiceCollection serviceProvider);
+        void Register(IServiceCollection serviceProvider, ILogger logger);
     }
 }

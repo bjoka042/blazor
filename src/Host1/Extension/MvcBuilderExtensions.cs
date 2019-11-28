@@ -1,11 +1,11 @@
 ﻿//using System;
+//using System.Collections.Generic;
+//using System.IO;
 //using System.Linq;
 //using System.Reflection;
-//using Microsoft.AspNetCore.Mvc.ApplicationParts;
-//using Microsoft.AspNetCore.Mvc.Razor;
+//using System.Runtime.Loader;
 //using Microsoft.Extensions.DependencyInjection;
-//using Microsoft.Extensions.FileProviders;
-//using Website1.Utility;
+//using PluginBase;
 
 //namespace Website1.Extensions
 //{
@@ -13,44 +13,37 @@
 //    {
 //        public static IMvcBuilder AddPlugins(this IMvcBuilder source, string path)
 //        {
-//            try
+//            var additionalAssemblies = new List<Assembly>();
+
+//            foreach (var dir in Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "Plugins")))
 //            {
-//                var assemblyPaths = PluginDirectory.GetAssemblyPaths(path).ToDictionary(d => d, Assembly.LoadFile);
+//                var pluginFile = Path.Combine(dir, Path.GetFileName(dir) + ".dll");
+//                Console.WriteLine($"Loading plugin {pluginFile}");
 
-//                source.ConfigureApplicationPartManager(manager =>
-//                {
-//                    foreach (var assemblyPath in assemblyPaths)
-//                    {
-//                        if (assemblyPath.Key.EndsWith("Views.dll"))
-//                        {
-//                            manager.ApplicationParts.Add(new CompiledRazorAssemblyPart(assemblyPath.Value));
-//                        }
-//                        else
-//                        {
-//                            manager.ApplicationParts.Add(new AssemblyPart(assemblyPath.Value));
-//                        }
-
-//                        var featureTypes = assemblyPath.Value.ExportedTypes.Where(d => typeof(IFeature).IsAssignableFrom(d));
-//                        foreach (var featureType in featureTypes)
-//                        {
-//                            var feature = Activator.CreateInstance(featureType) as IFeature;
-//                            if (feature == null)
-//                                throw new ArgumentNullException(nameof(feature), $"Failed to instantiate {nameof(IFeature)} from type {featureType.FullName}.");
-
-//                            source.Services.AddSingleton(feature);
-//                            feature.Register(source.Services);
-//                        }
-//                    }
-//                });
+//                source.AddPluginFromAssemblyFile(pluginFile);
 //            }
-//            catch (Exception ex)
+
+//            var assemblies = AssemblyLoadContext.All
+//                .SelectMany(x => x.Assemblies)
+//                .Where(x => x.ExportedTypes.Any(d => !d.IsInterface && typeof(IFeature).IsAssignableFrom(d)))
+//                .ToList();
+
+//            var featureTypes = assemblies.SelectMany(x => x.ExportedTypes).Where(x => !x.IsInterface && typeof(IFeature).IsAssignableFrom(x));
+//            foreach (var featureType in featureTypes)
 //            {
-//                if (ex is ReflectionTypeLoadException)
-//                {
-//                    var reflectionTypeLoadException = ex as ReflectionTypeLoadException;
-//                    Console.WriteLine(reflectionTypeLoadException.Message);
-//                }
+//                var feature = Activator.CreateInstance(featureType) as IFeature;
+//                if (feature == null)
+//                    throw new ArgumentNullException(nameof(feature), $"Failed to instantiate {nameof(IFeature)} from type {featureType.FullName}.");
+
+//                services.AddSingleton(feature);
+//                feature.Register(services);
+
+//                if (!additionalAssemblies.Contains(featureType.Assembly))
+//                    additionalAssemblies.Add(featureType.Assembly);
 //            }
+
+//            additionalAssemblies.ForEach(x => Console.WriteLine($"AdditionalAssemblies: {x.FullName}"));
+//            services.AddSingleton(typeof(IAdditionalAssembliesProvider), new AdditionalAssembliesProvider(additionalAssemblies));
 
 //            return source;
 //        }

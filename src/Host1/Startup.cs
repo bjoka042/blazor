@@ -1,64 +1,46 @@
-using System;
-using System.IO;
+using HostBase.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.Loader;
-using System.Linq;
-using PluginBase;
-using Host1.Utility;
+using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Serilog;
+using Serilog.Events;
 
 namespace Host1
 {
     public class Startup
     {
+        private readonly ILogger _logger;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Log.Logger = new LoggerConfiguration()
+                        .MinimumLevel.Information()
+                        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                        .Enrich.FromLogContext()
+                        .WriteTo.ColoredConsole()
+                        .CreateLogger();
+
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(Log.Logger));
+
+            _logger = loggerFactory.CreateLogger<Startup>();
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var mvcBuilder = services.AddRazorPages();
+            var pluginPath = Path.Combine(AppContext.BaseDirectory, "Plugins");
+
+            services.AddRazorPages().AddPlugins(pluginPath, _logger);
             services.AddServerSideBlazor();
-
-            var additionalAssemblies = new List<Assembly>();
-
-            foreach (var dir in Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "Plugins")))
-            {
-                var pluginFile = Path.Combine(dir, Path.GetFileName(dir) + ".dll");
-                Console.WriteLine($"Loading plugin {pluginFile}");
-
-                mvcBuilder.AddPluginFromAssemblyFile(pluginFile);
-            }
-
-            var assemblies = AssemblyLoadContext.All
-                .SelectMany(x => x.Assemblies)
-                .Where(x => x.ExportedTypes.Any(d => !d.IsInterface && typeof(IFeature).IsAssignableFrom(d)))
-                .ToList();
-
-            var featureTypes = assemblies.SelectMany(x => x.ExportedTypes).Where(x => !x.IsInterface && typeof(IFeature).IsAssignableFrom(x));
-            foreach (var featureType in featureTypes)
-            {
-                var feature = Activator.CreateInstance(featureType) as IFeature;
-                if (feature == null)
-                    throw new ArgumentNullException(nameof(feature), $"Failed to instantiate {nameof(IFeature)} from type {featureType.FullName}.");
-
-                services.AddSingleton(feature);
-                feature.Register(services);
-
-                if (!additionalAssemblies.Contains(featureType.Assembly))
-                    additionalAssemblies.Add(featureType.Assembly);
-            }
-
-            additionalAssemblies.ForEach(x => Console.WriteLine($"AdditionalAssemblies: {x.FullName}"));
-            services.AddSingleton(typeof(IAdditionalAssembliesProvider), new AdditionalAssembliesProvider(additionalAssemblies));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
