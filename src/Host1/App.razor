@@ -1,0 +1,19 @@
+@inject IAdditionalAssembliesProvider AdditionalAssembliesProvider
+
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@LoadAdditionalAssemblies()">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@code {
+    protected IEnumerable<System.Reflection.Assembly> LoadAdditionalAssemblies()
+    {
+        return AdditionalAssembliesProvider.GetAdditionalAssemblies();
+    }
+}
