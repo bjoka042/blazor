@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Components</id>
+    <version>1.0.86-pre</version>
+    <authors>Components</authors>
+    <owners>Components</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.AspNetCore.Components" version="3.1.0-preview3.19555.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Components.Web" version="3.1.0-preview3.19555.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="d:\Repos\blazor\src\Components\bin\Debug\netstandard2.0\Components.dll" target="lib\netstandard2.0\Components.dll" />
+    <file src="d:\Repos\blazor\src\Components\obj\Debug\netstandard2.0\staticwebassets\msbuild.Components.Microsoft.AspNetCore.StaticWebAssets.props" target="build\Microsoft.AspNetCore.StaticWebAssets.props" />
+    <file src="d:\Repos\blazor\src\Components\obj\Debug\netstandard2.0\staticwebassets\msbuild.build.Components.props" target="build\Components.props" />
+    <file src="d:\Repos\blazor\src\Components\obj\Debug\netstandard2.0\staticwebassets\msbuild.buildMultiTargeting.Components.props" target="buildMultiTargeting\Components.props" />
+    <file src="d:\Repos\blazor\src\Components\obj\Debug\netstandard2.0\staticwebassets\msbuild.buildTransitive.Components.props" target="buildTransitive\Components.props" />
+    <file src="d:\Repos\blazor\src\Components\wwwroot\background.png" target="staticwebassets\background.png" />
+    <file src="d:\Repos\blazor\src\Components\wwwroot\exampleJsInterop.js" target="staticwebassets\exampleJsInterop.js" />
+    <file src="d:\Repos\blazor\src\Components\wwwroot\styles.css" target="staticwebassets\styles.css" />
+  </files>
+</package>

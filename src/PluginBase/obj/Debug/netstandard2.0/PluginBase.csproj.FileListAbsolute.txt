@@ -1,0 +1,8 @@
+D:\Repos\blazor\src\PluginBase\bin\Debug\netstandard2.0\PluginBase.deps.json
+D:\Repos\blazor\src\PluginBase\bin\Debug\netstandard2.0\PluginBase.dll
+D:\Repos\blazor\src\PluginBase\bin\Debug\netstandard2.0\PluginBase.pdb
+D:\Repos\blazor\src\PluginBase\obj\Debug\netstandard2.0\PluginBase.csprojAssemblyReference.cache
+D:\Repos\blazor\src\PluginBase\obj\Debug\netstandard2.0\PluginBase.AssemblyInfoInputs.cache
+D:\Repos\blazor\src\PluginBase\obj\Debug\netstandard2.0\PluginBase.AssemblyInfo.cs
+D:\Repos\blazor\src\PluginBase\obj\Debug\netstandard2.0\PluginBase.dll
+D:\Repos\blazor\src\PluginBase\obj\Debug\netstandard2.0\PluginBase.pdb
